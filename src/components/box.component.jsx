@@ -1,42 +1,57 @@
 import React, { useRef, useState, useMemo } from "react";
-import { useFrame } from "react-three-fiber";
-import * as THREE from "three";
-import five from "../assets/five.png";
 
-const Box = (props) => {
+import { useFrame } from "react-three-fiber";
+import { MeshWobbleMaterial } from "drei";
+import * as THREE from "three";
+// React Spring
+import { useSpring, a } from "react-spring/three";
+
+import five from "../assets/five.png";
+import four from "../assets/four.png";
+
+const Box = ({ position, color, speed, args }) => {
+  //ref to target the mesh
   const mesh = useRef();
   const [active, setActive] = useState(false);
 
-  //useFrame(() => {
-  //mesh.current.rotation.x += 0.01;
-  //mesh.current.rotation.y += 0.03;
-  //});
+  //useFrame allows us to re-render/update rotation on each frame
+  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
 
   const texture = useMemo(() => new THREE.TextureLoader().load(five), []);
 
-  const camera = useMemo(
-    () =>
-      new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-      ),
-    []
-  );
+  const props = useSpring({
+    scale: active ? [2.4, 2.4, 2.4] : [2, 2, 2],
+  });
 
   return (
-    <mesh
-      {...props}
+    <a.mesh
+      position={position}
       ref={mesh}
-      scale={[1.2, 1.2, 1.2]}
-      onClick={(e) => setActive(!active)}
+      scale={props.scale}
+      onClick={() => setActive(!active)}
+      onPointerOver={() => setActive(true)}
+      onPointerOut={() => setActive(false)}
+      castShadow
     >
-      <boxBufferGeometry args={[2, 2, 2]} />
-      <meshBasicMaterial attach="material" transparent side={THREE.DoubleSide}>
-        <primitive attach="map" object={texture} />
-      </meshBasicMaterial>
-    </mesh>
+      <boxBufferGeometry args={args} attach="geometry" />
+      {
+        <meshBasicMaterial
+          attach="material"
+          transparent
+          side={THREE.DoubleSide}
+        >
+          <primitive attach="map" object={texture} />
+        </meshBasicMaterial>
+        //<MeshWobbleMaterial
+        //color={color}
+        //speed={speed}
+        //attach="material"
+        //factor={0.6}
+        //>
+        //<primitive attach="map" object={texture} />
+        //</MeshWobbleMaterial>
+      }
+    </a.mesh>
   );
 };
 

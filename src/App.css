@@ -1,11 +1,10 @@
 header {
-  background-color: white;
+  background-color: #dddddd48;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 2rem;
 }
 canvas {
-  background-color: #a81818;
-  width: 100vh;
-  width: 100vw;
+  background-color: #fff;
+  width: 93vw;
 }
