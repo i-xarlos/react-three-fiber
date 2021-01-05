@@ -1,13 +1,12 @@
 import React, { useRef, useState, useMemo } from "react";
 
 import { useFrame } from "react-three-fiber";
-import { MeshWobbleMaterial } from "drei";
+//import { MeshWobbleMaterial } from "drei";
 import * as THREE from "three";
 // React Spring
 import { useSpring, a } from "react-spring/three";
 
 import five from "../assets/five.png";
-import four from "../assets/four.png";
 
 const Box = ({ position, color, speed, args }) => {
   //ref to target the mesh

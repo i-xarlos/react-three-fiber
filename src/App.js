@@ -1,10 +1,13 @@
+import { Suspense } from "react";
 import { Canvas } from "react-three-fiber";
-import Box from "./components/box.component";
 import CameraControls from "./components/controls.component";
 import Header from "./components/header.component";
 
-import "./App.css";
+import Box from "./components/box.component";
 import SpinningMesh from "./components/spinning.component";
+import Dice from "./components/dice.component";
+
+import "./App.css";
 
 function App() {
   return (
@@ -37,6 +40,7 @@ function App() {
 
         <group>
           {/* This mesh is the plane (The floor) */}
+
           <mesh
             rotation={[-Math.PI / 2, 0, 0]}
             position={[0, -4, 0]}
@@ -52,8 +56,11 @@ function App() {
             //args={[3, 2, 1]}
             //speed={2}
             ///>
+            //<Box position={[0, 0, 0]} args={[2, 2, 2]} speed={2} />
+            <Suspense fallback={null}>
+              <Dice args={[2, 2, 2]} />
+            </Suspense>
           }
-          <Box position={[0, 0, 0]} args={[2, 2, 2]} speed={2} />
         </group>
       </Canvas>
     </>
