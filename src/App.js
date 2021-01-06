@@ -37,6 +37,7 @@ function App() {
         {/* A light to help illumnate the spinning boxes */}
         <pointLight position={[-10, 0, -20]} intensity={0.5} />
         <pointLight position={[0, -10, 0]} intensity={1.5} />
+        <pointLight position={[-10, -10, -5]} color="yellow" intensity={2} />
 
         <group>
           {/* This mesh is the plane (The floor) */}

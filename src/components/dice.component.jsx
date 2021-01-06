@@ -17,7 +17,7 @@ export default function Dice({ args }) {
   const [active, setActive] = useState(false);
 
   useFrame(() => {
-    mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
+    mesh.current.rotation.x = mesh.current.rotation.y += 0.005;
   });
 
   const props = useSpring({
@@ -32,22 +32,25 @@ export default function Dice({ args }) {
   const texture_6 = useMemo(() => new THREE.TextureLoader().load(six), []);
 
   return (
-    <a.mesh
-      ref={mesh}
-      scale={props.scale}
-      position={[0, 0, 0]}
-      onClick={() => setActive(!active)}
-      onPointerOver={() => setActive(true)}
-      onPointerOut={() => setActive(false)}
-      castShadow
-    >
-      <boxBufferGeometry attach="geometry" args={args} />
-      <meshStandardMaterial map={texture_1} attachArray="material" />
-      <meshStandardMaterial map={texture_2} attachArray="material" />
-      <meshStandardMaterial map={texture_3} attachArray="material" />
-      <meshStandardMaterial map={texture_4} attachArray="material" />
-      <meshStandardMaterial map={texture_5} attachArray="material" />
-      <meshStandardMaterial map={texture_6} attachArray="material" />
-    </a.mesh>
+    <>
+      <a.mesh
+        ref={mesh}
+        scale={props.scale}
+        position={[0, 0, 0]}
+        onClick={() => setActive(!active)}
+        onPointerOver={() => setActive(true)}
+        onPointerOut={() => setActive(false)}
+        castShadow
+      >
+        <boxBufferGeometry attach="geometry" args={args} />
+
+        <meshStandardMaterial map={texture_1} attachArray="material" />
+        <meshStandardMaterial map={texture_2} attachArray="material" />
+        <meshStandardMaterial map={texture_3} attachArray="material" />
+        <meshStandardMaterial map={texture_4} attachArray="material" />
+        <meshStandardMaterial map={texture_5} attachArray="material" />
+        <meshStandardMaterial map={texture_6} attachArray="material" />
+      </a.mesh>
+    </>
   );
 }
